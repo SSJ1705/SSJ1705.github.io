@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Now Playing</title>
+    <link rel="icon" type="image/png" href="tab_icon.png">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts for a nicer look -->
@@ -44,8 +45,7 @@
             flex-shrink: 0;
             z-index: 10;
         }
-
-        /* UPDATED: #brand is now just static text */
+        
         #brand {
             color: white;
             font-size: 1.5rem;
@@ -58,15 +58,14 @@
             gap: 20px;
         }
         
-        /* This style now applies to both buttons and the new home link */
         .control-btn {
             background: transparent;
             border: none;
             color: white;
-            font-size: 1.5rem; /* Larger icons */
+            font-size: 1.5rem;
             cursor: pointer;
             padding: 5px;
-            display: inline-block; /* Ensures anchor tag behaves like a button */
+            display: inline-block;
             transition: color 0.2s, transform 0.2s;
         }
 
@@ -75,7 +74,6 @@
             transform: scale(1.1);
         }
 
-        /* Specific style for the panic button's hover state */
         #panic-btn {
             color: var(--panic-color);
         }
@@ -106,16 +104,13 @@
     <div id="game-player-wrapper">
         <!-- Top Control Bar -->
         <div id="control-bar">
-            <!-- UPDATED: Brand is no longer a link -->
             <div id="brand">
                 GameHub
             </div>
             <div id="controls-right">
-                <!-- NEW: Home button added to the controls -->
                 <a href="index.html" class="control-btn" title="Back to Home">
                     <i class="fas fa-home"></i>
                 </a>
-
                 <button id="panic-btn" class="control-btn" title="Panic Button - Go to a school site">
                     <i class="fas fa-bolt"></i>
                 </button>
@@ -156,7 +151,7 @@
             if (gamePath) {
                 gameFrame.src = gamePath;
                 if (gameTitle) {
-                    document.title = `Playing: ${gameTitle}`;
+                    document.title = `Playing: ${decodeURIComponent(gameTitle)}`;
                 }
             } else {
                 document.body.innerHTML = '<h1 style="color:white; text-align:center; padding-top: 50px;">Error: No game specified.</h1>';
