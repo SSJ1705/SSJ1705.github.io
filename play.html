@@ -45,9 +45,9 @@
             z-index: 10;
         }
 
-        #brand a {
+        /* UPDATED: #brand is now just static text */
+        #brand {
             color: white;
-            text-decoration: none;
             font-size: 1.5rem;
             font-weight: 700;
         }
@@ -57,7 +57,8 @@
             align-items: center;
             gap: 20px;
         }
-
+        
+        /* This style now applies to both buttons and the new home link */
         .control-btn {
             background: transparent;
             border: none;
@@ -65,6 +66,7 @@
             font-size: 1.5rem; /* Larger icons */
             cursor: pointer;
             padding: 5px;
+            display: inline-block; /* Ensures anchor tag behaves like a button */
             transition: color 0.2s, transform 0.2s;
         }
 
@@ -85,7 +87,7 @@
 
         #game-display {
             flex-grow: 1;
-            padding: 20px; /* Gives a nice border around the game frame */
+            padding: 20px;
             background-color: var(--dark-gray);
         }
 
@@ -93,9 +95,9 @@
             width: 100%;
             height: 100%;
             border: none;
-            border-radius: 8px; /* Rounded corners for the game */
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* A subtle glow */
-            background-color: #000; /* Black background while game loads */
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            background-color: #000;
         }
     </style>
 </head>
@@ -104,21 +106,22 @@
     <div id="game-player-wrapper">
         <!-- Top Control Bar -->
         <div id="control-bar">
+            <!-- UPDATED: Brand is no longer a link -->
             <div id="brand">
-                <a href="index.html">GameHub</a>
+                GameHub
             </div>
             <div id="controls-right">
-                <!-- PANIC BUTTON -->
+                <!-- NEW: Home button added to the controls -->
+                <a href="index.html" class="control-btn" title="Back to Home">
+                    <i class="fas fa-home"></i>
+                </a>
+
                 <button id="panic-btn" class="control-btn" title="Panic Button - Go to a school site">
                     <i class="fas fa-bolt"></i>
                 </button>
-
-                <!-- RELOAD BUTTON -->
                 <button id="reload-btn" class="control-btn" title="Reload Game">
                     <i class="fas fa-sync-alt"></i>
                 </button>
-                
-                <!-- FULLSCREEN BUTTON -->
                 <button id="fullscreen-btn" class="control-btn" title="Fullscreen">
                     <i class="fas fa-expand"></i>
                 </button>
@@ -138,7 +141,6 @@
             const reloadBtn = document.getElementById('reload-btn');
             const panicBtn = document.getElementById('panic-btn');
 
-            // List of safe URLs for the panic button
             const panicUrls = [
                 'https://origin.collierschools.com/app/SSO/Canvas/STUDENT',
                 'https://origin.collierschools.com/app/SSO/Focus/STUDENT',
@@ -153,37 +155,27 @@
 
             if (gamePath) {
                 gameFrame.src = gamePath;
-                // Set the browser tab title to the game's name for clarity
                 if (gameTitle) {
                     document.title = `Playing: ${gameTitle}`;
                 }
             } else {
-                // Display an error if no game is specified in the URL
                 document.body.innerHTML = '<h1 style="color:white; text-align:center; padding-top: 50px;">Error: No game specified.</h1>';
             }
 
-            // Fullscreen functionality
             fullscreenBtn.addEventListener('click', () => {
                 if (gameFrame.requestFullscreen) gameFrame.requestFullscreen();
-                else if (gameFrame.mozRequestFullScreen) gameFrame.mozRequestFullScreen(); // Firefox
-                else if (gameFrame.webkitRequestFullscreen) gameFrame.webkitRequestFullscreen(); // Chrome, Safari & Opera
-                else if (gameFrame.msRequestFullscreen) gameFrame.msRequestFullscreen(); // IE/Edge
+                else if (gameFrame.mozRequestFullScreen) gameFrame.mozRequestFullScreen();
+                else if (gameFrame.webkitRequestFullscreen) gameFrame.webkitRequestFullscreen();
+                else if (gameFrame.msRequestFullscreen) gameFrame.msRequestFullscreen();
             });
 
-            // Reload functionality
             reloadBtn.addEventListener('click', () => {
-                // This reloads the content within the iframe without refreshing the main page
                 gameFrame.src = gameFrame.src;
             });
 
-            // Panic Button Logic
             panicBtn.addEventListener('click', () => {
-                // 1. Pick a random URL from our safe list
                 const randomIndex = Math.floor(Math.random() * panicUrls.length);
                 const randomUrl = panicUrls[randomIndex];
-                // 2. Use window.location.replace() to immediately change the site.
-                // This is better than a normal link because it doesn't leave the game
-                // page in the browser's "back" history.
                 window.location.replace(randomUrl);
             });
         });
