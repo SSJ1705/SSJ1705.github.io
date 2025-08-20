@@ -1,46 +1,27 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
     const gameGrid = document.getElementById('game-grid');
-    const gameModal = new bootstrap.Modal(document.getElementById('gameModal'));
-    const gameFrame = document.getElementById('game-frame');
-    const gameModalLabel = document.getElementById('gameModalLabel');
 
-    // Dynamically load games
+    // Dynamically load game cards
     games.forEach(game => {
-        const gameCard = document.createElement('div');
-        gameCard.className = 'col-md-3';
-        gameCard.innerHTML = `
-            <div class="game-card">
-                <img src="${game.thumbnail}" alt="${game.title}">
-                <h5>${game.title}</h5>
-            </div>
+        const col = document.createElement('div');
+        col.className = 'col-lg-3 col-md-4 col-sm-6 mb-4';
+        
+        // This whole card is now a link to the play page
+        col.innerHTML = `
+            <a href="play.html?game=${game.path}" class="game-card-link">
+                <div class="game-card">
+                    <img src="${game.thumbnail}" class="game-card-img" alt="${game.title}">
+                    <h5 class="game-card-title">${game.title}</h5>
+                </div>
+            </a>
         `;
-        gameCard.addEventListener('click', () => {
-            gameModalLabel.textContent = game.title;
-            gameFrame.src = game.embedUrl;
-            gameModal.show();
-        });
-        gameGrid.appendChild(gameCard);
+        
+        gameGrid.appendChild(col);
     });
-
-    // Navigation
-    const sections = {
-        games: document.getElementById('games-section'),
-        scheduler: document.getElementById('scheduler-section'),
-        ai: document.getElementById('ai-section')
-    };
-
-    document.getElementById('games-link').addEventListener('click', () => showSection('games'));
-    document.getElementById('scheduler-link').addEventListener('click', () => showSection('scheduler'));
-    document.getElementById('ai-link').addEventListener('click', () => showSection('ai'));
-
-    function showSection(sectionId) {
-        Object.values(sections).forEach(section => section.classList.add('d-none'));
-        sections[sectionId].classList.remove('d-none');
-    }
-
-    // Initialize Scheduler
-    var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
+    
+    // Initialize the FullCalendar scheduler
+    const calendarEl = document.getElementById('calendar');
+    const calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         headerToolbar: {
             left: 'prev,next today',
@@ -48,7 +29,6 @@ document.addEventListener('DOMContentLoaded', function() {
             right: 'dayGridMonth,timeGridWeek,timeGridDay'
         },
         editable: true,
-        events: [] // You can add events here
     });
     calendar.render();
 });
