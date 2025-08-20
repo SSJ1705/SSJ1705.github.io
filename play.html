@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Player</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            height: 100%;
+            background-color: #000;
+        }
+        #game-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        #game-frame {
+            flex-grow: 1;
+            border: none;
+        }
+        #controls {
+            background-color: #1a1a1a;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+        .control-btn {
+            background-color: #0d6efd;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: sans-serif;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="game-container">
+        <div id="controls">
+            <a href="index.html" class="control-btn" style="text-decoration: none;">Back to Home</a>
+            <button id="fullscreen-btn" class="control-btn">Go Fullscreen</button>
+        </div>
+        <iframe id="game-frame" src="" allowfullscreen></iframe>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const gameFrame = document.getElementById('game-frame');
+            const fullscreenBtn = document.getElementById('fullscreen-btn');
+
+            // Get the game to load from the URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const gamePath = urlParams.get('game');
+
+            if (gamePath) {
+                // Construct the full path and set it as the iframe source
+                gameFrame.src = gamePath;
+                document.title = "Now Playing..."; // You can improve this later
+            } else {
+                gameFrame.src = 'about:blank';
+                document.body.innerHTML = '<h1 style="color:white; text-align:center;">Error: No game specified.</h1>';
+            }
+
+            // Fullscreen button functionality
+            fullscreenBtn.addEventListener('click', () => {
+                if (gameFrame.requestFullscreen) {
+                    gameFrame.requestFullscreen();
+                } else if (gameFrame.mozRequestFullScreen) { /* Firefox */
+                    gameFrame.mozRequestFullScreen();
+                } else if (gameFrame.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+                    gameFrame.webkitRequestFullscreen();
+                } else if (gameFrame.msRequestFullscreen) { /* IE/Edge */
+                    gameFrame.msRequestFullscreen();
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
