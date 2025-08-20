@@ -11,14 +11,16 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">GameHub</a>
+            <a class="navbar-brand" href="index.html">GameHub</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#home-section">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#home-section">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="#games-section">Games</a></li>
+                    <li class="nav-item"><a class="nav-link" href="scheduler.html">Scheduler</a></li>
+                    <li class="nav-item"><a class="nav-link" href="ai.html">AI Assistant</a></li>
                 </ul>
             </div>
         </div>
@@ -26,7 +28,6 @@
 
     <!-- Main Content -->
     <main class="container-fluid p-0">
-        <!-- Home Hero Section -->
         <section id="home-section" class="hero-section text-center text-white d-flex align-items-center justify-content-center">
             <div>
                 <h1>Welcome to Your Ultimate Hub</h1>
@@ -34,17 +35,18 @@
                 <a href="#games-section" class="btn btn-primary btn-lg mt-3">Browse Games</a>
             </div>
         </section>
-
-        <!-- Games Section -->
         <section id="games-section" class="py-5 bg-darker">
             <div class="container">
                 <h2 class="text-center mb-4">Game Library</h2>
-                <div id="game-grid" class="row">
-                    <!-- Game cards will be dynamically inserted here -->
-                </div>
+                <div id="game-grid" class="row"></div>
             </div>
         </section>
     </main>
+
+    <!-- Footer -->
+    <footer class="footer text-center py-3">
+        <p>&copy; 2025 GameHub. All rights reserved.</p>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/games.js"></script>

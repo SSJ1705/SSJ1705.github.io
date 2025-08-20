@@ -6,26 +6,34 @@
     <title>Now Playing</title>
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts for a nicer look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --dark-gray: #121212;
             --medium-gray: #1a1a1a;
             --light-gray: #2a2a2a;
             --primary-color: #0d6efd;
+            --panic-color: #dc3545; /* Red for panic button */
         }
+
         body, html {
             margin: 0;
             padding: 0;
             overflow: hidden;
             height: 100%;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
             background: radial-gradient(circle, var(--medium-gray) 0%, var(--dark-gray) 100%);
         }
+
         #game-player-wrapper {
             display: flex;
             flex-direction: column;
             height: 100%;
         }
+
         #control-bar {
             display: flex;
             justify-content: space-between;
@@ -34,39 +42,60 @@
             background-color: var(--dark-gray);
             border-bottom: 2px solid var(--primary-color);
             flex-shrink: 0;
+            z-index: 10;
         }
+
         #brand a {
             color: white;
             text-decoration: none;
             font-size: 1.5rem;
-            font-weight: bold;
+            font-weight: 700;
         }
+
         #controls-right {
             display: flex;
             align-items: center;
             gap: 20px;
         }
+
         .control-btn {
-            background: none;
+            background: transparent;
             border: none;
             color: white;
             font-size: 1.5rem; /* Larger icons */
             cursor: pointer;
-            transition: color 0.2s;
+            padding: 5px;
+            transition: color 0.2s, transform 0.2s;
         }
+
         .control-btn:hover {
             color: var(--primary-color);
+            transform: scale(1.1);
         }
+
+        /* Specific style for the panic button's hover state */
+        #panic-btn {
+            color: var(--panic-color);
+        }
+        #panic-btn:hover {
+            color: white;
+            background-color: var(--panic-color);
+            border-radius: 5px;
+        }
+
         #game-display {
             flex-grow: 1;
             padding: 20px; /* Gives a nice border around the game frame */
+            background-color: var(--dark-gray);
         }
+
         #game-frame {
             width: 100%;
             height: 100%;
             border: none;
             border-radius: 8px; /* Rounded corners for the game */
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* A subtle glow */
+            background-color: #000; /* Black background while game loads */
         }
     </style>
 </head>
@@ -79,9 +108,17 @@
                 <a href="index.html">GameHub</a>
             </div>
             <div id="controls-right">
+                <!-- PANIC BUTTON -->
+                <button id="panic-btn" class="control-btn" title="Panic Button - Go to a school site">
+                    <i class="fas fa-bolt"></i>
+                </button>
+
+                <!-- RELOAD BUTTON -->
                 <button id="reload-btn" class="control-btn" title="Reload Game">
                     <i class="fas fa-sync-alt"></i>
                 </button>
+                
+                <!-- FULLSCREEN BUTTON -->
                 <button id="fullscreen-btn" class="control-btn" title="Fullscreen">
                     <i class="fas fa-expand"></i>
                 </button>
@@ -99,33 +136,55 @@
             const gameFrame = document.getElementById('game-frame');
             const fullscreenBtn = document.getElementById('fullscreen-btn');
             const reloadBtn = document.getElementById('reload-btn');
+            const panicBtn = document.getElementById('panic-btn');
+
+            // List of safe URLs for the panic button
+            const panicUrls = [
+                'https://origin.collierschools.com/app/SSO/Canvas/STUDENT',
+                'https://origin.collierschools.com/app/SSO/Focus/STUDENT',
+                'https://origin.collierschools.com/app/Portal',
+                'https://origin.collierschools.com/app/SSO/Clever/STUDENT',
+                'https://origin.collierschools.com/app/SSO/DESTINY/STUDENT'
+            ];
 
             const urlParams = new URLSearchParams(window.location.search);
             const gamePath = urlParams.get('game');
-            const gameTitle = urlParams.get('title'); // Get the title from the URL
+            const gameTitle = urlParams.get('title');
 
             if (gamePath) {
                 gameFrame.src = gamePath;
-                // Set the browser tab title to the game's name
+                // Set the browser tab title to the game's name for clarity
                 if (gameTitle) {
                     document.title = `Playing: ${gameTitle}`;
                 }
             } else {
-                document.body.innerHTML = '<h1 style="color:white; text-align:center;">Error: No game specified.</h1>';
+                // Display an error if no game is specified in the URL
+                document.body.innerHTML = '<h1 style="color:white; text-align:center; padding-top: 50px;">Error: No game specified.</h1>';
             }
 
             // Fullscreen functionality
             fullscreenBtn.addEventListener('click', () => {
                 if (gameFrame.requestFullscreen) gameFrame.requestFullscreen();
-                else if (gameFrame.mozRequestFullScreen) gameFrame.mozRequestFullScreen();
-                else if (gameFrame.webkitRequestFullscreen) gameFrame.webkitRequestFullscreen();
-                else if (gameFrame.msRequestFullscreen) gameFrame.msRequestFullscreen();
+                else if (gameFrame.mozRequestFullScreen) gameFrame.mozRequestFullScreen(); // Firefox
+                else if (gameFrame.webkitRequestFullscreen) gameFrame.webkitRequestFullscreen(); // Chrome, Safari & Opera
+                else if (gameFrame.msRequestFullscreen) gameFrame.msRequestFullscreen(); // IE/Edge
             });
 
             // Reload functionality
             reloadBtn.addEventListener('click', () => {
-                // This reloads the content within the iframe
+                // This reloads the content within the iframe without refreshing the main page
                 gameFrame.src = gameFrame.src;
+            });
+
+            // Panic Button Logic
+            panicBtn.addEventListener('click', () => {
+                // 1. Pick a random URL from our safe list
+                const randomIndex = Math.floor(Math.random() * panicUrls.length);
+                const randomUrl = panicUrls[randomIndex];
+                // 2. Use window.location.replace() to immediately change the site.
+                // This is better than a normal link because it doesn't leave the game
+                // page in the browser's "back" history.
+                window.location.replace(randomUrl);
             });
         });
     </script>
