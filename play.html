@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playing - NHS Unlocked</title>
+    <link rel="icon" type="image/png" href="assets/images/tab_icon.png">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts & Custom Style -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Inline styles are here for critical overrides specific to the game player layout -->
+    <style>
+        /* These override rules from style.css are crucial for play.html's unique layout */
+        body, html {
+            overflow: hidden; /* Prevent scrolling, as iframe fills screen */
+            height: 100%;
+        }
+        #game-player-wrapper {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        #game-display {
+            flex-grow: 1;
+            padding: 20px;
+            display: flex; /* Ensure iframe stretches */
+        }
+        #game-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+            /* box-shadow and background are now handled by style.css */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="game-player-wrapper">
+        <!-- Top Control Bar -->
+        <div id="control-bar">
+            <div id="brand">
+                NHS Unlocked
+            </div>
+            <div id="controls-right">
+                <a href="index.html" class="control-btn" title="Back to Home">
+                    <i class="fas fa-home"></i>
+                </a>
+                <button id="panic-btn" class="control-btn" title="Panic Button - Go to a school site">
+                    <i class="fas fa-bolt"></i>
+                </button>
+                <button id="reload-btn" class="control-btn" title="Reload Game">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+                <button id="fullscreen-btn" class="control-btn" title="Fullscreen">
+                    <i class="fas fa-expand"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Game Display Area -->
+        <div id="game-display">
+            <iframe id="game-frame" src="" allowfullscreen sandbox="allow-scripts allow-same-origin allow-popups allow-pointer-lock"></iframe>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const gameFrame = document.getElementById('game-frame');
+            const fullscreenBtn = document.getElementById('fullscreen-btn');
+            const reloadBtn = document.getElementById('reload-btn');
+            const panicBtn = document.getElementById('panic-btn');
+
+            // IMPORTANT: Customize these URLs to your specific school's websites
+            const panicUrls = [
+                'https://www.google.com', // Example: Google
+                'https://origin.collierschools.com/app/SSO/Canvas/STUDENT',
+                'https://origin.collierschools.com/app/SSO/Focus/STUDENT',
+                'https://origin.collierschools.com/app/Portal',
+                'https://origin.collierschools.com/app/SSO/Clever/STUDENT',
+                'https://origin.collierschools.com/app/SSO/DESTINY/STUDENT'
+            ];
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const gamePath = urlParams.get('game');
+            const gameTitle = urlParams.get('title');
+
+            if (gamePath) {
+                // Adjust gamePath if it needs to be relative to the root, not play.html's current directory
+                // For this structure, gamePath like 'games/slope/index.html' is already relative to the root.
+                gameFrame.src = gamePath;
+                if (gameTitle) {
+                    document.title = `Playing: ${decodeURIComponent(gameTitle)} - NHS Unlocked`;
+                }
+            } else {
+                document.body.innerHTML = '<h1 style="color:var(--galaxy-text-light); text-align:center; padding-top: 50px;">Error: No game specified.</h1>';
+            }
+
+            fullscreenBtn.addEventListener('click', () => {
+                if (gameFrame.requestFullscreen) gameFrame.requestFullscreen();
+                else if (gameFrame.mozRequestFullScreen) gameFrame.mozRequestFullScreen();
+                else if (gameFrame.webkitRequestFullscreen) gameFrame.webkitRequestFullscreen();
+                else if (gameFrame.msRequestFullscreen) gameFrame.msRequestFullscreen();
+            });
+
+            reloadBtn.addEventListener('click', () => {
+                gameFrame.src = gameFrame.src;
+            });
+
+            panicBtn.addEventListener('click', () => {
+                const randomIndex = Math.floor(Math.random() * panicUrls.length);
+                const randomUrl = panicUrls[randomIndex];
+                window.location.replace(randomUrl);
+            });
+        });
+    </script>
+
+</body>
+</html>

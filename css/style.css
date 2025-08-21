@@ -1,0 +1,254 @@
+/* Import Google Fonts - Poppins for general text, and maybe something spacey if desired */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Orbitron:wght@400;700&display=swap');
+
+/* Galaxy Theme Variables */
+:root {
+    --galaxy-dark-background: #0A0A1A; /* Very dark blue/purple */
+    --galaxy-darker-element: #1C1C3A; /* Slightly lighter for elements */
+    --galaxy-primary-color: #5B7FFF; /* Bright blue for accents */
+    --galaxy-accent-glow: #8B9FFF; /* Lighter blue for glows */
+    --galaxy-text-light: #E0E0FF; /* Light text for readability */
+    --galaxy-text-muted: #A0A0C0; /* Muted text */
+    --border-color: #3A3A6A; /* Subtle border color */
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--galaxy-dark-background);
+    color: var(--galaxy-text-light);
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    min-height: 100vh; /* Ensure body takes full height */
+}
+
+/* Background Stars Effect - Optional but enhances theme */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgOTQwIDc4OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuMCkiLz4KPC9zdmc+'); /* Placeholder for a subtle star pattern SVG/PNG */
+    opacity: 0.1; /* Adjust for subtlety */
+    z-index: -1;
+    pointer-events: none; /* Allow interaction with elements beneath */
+}
+/* If you want a more complex star effect, consider a JS library or a larger background image */
+
+
+h1, h2, h3, .navbar-brand {
+    font-family: 'Orbitron', sans-serif; /* A more tech/spacey font for headings */
+    font-weight: 700;
+    color: var(--galaxy-primary-color);
+    text-shadow: 0 0 8px rgba(91, 127, 255, 0.5); /* Subtle glow */
+}
+
+.navbar {
+    background-color: var(--galaxy-darker-element) !important;
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.navbar-brand {
+    font-size: 1.8rem;
+    color: var(--galaxy-text-light) !important;
+    text-shadow: 0 0 5px rgba(224, 224, 255, 0.3);
+}
+
+.navbar-nav .nav-link {
+    color: var(--galaxy-text-muted) !important;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+    color: var(--galaxy-primary-color) !important;
+    text-shadow: 0 0 10px var(--galaxy-accent-glow);
+}
+
+/* Hero Section */
+.hero-section {
+    min-height: 70vh;
+    background: linear-gradient(rgba(10, 10, 26, 0.8), rgba(10, 10, 26, 0.8)), url('../assets/images/hero-background-galaxy.jpg') no-repeat center center/cover;
+    background-attachment: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--galaxy-text-light);
+    text-align: center;
+}
+
+.hero-section h1 {
+    font-size: 4.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+    text-shadow: 0 0 15px rgba(91, 127, 255, 0.7);
+}
+
+.hero-section p.lead {
+    font-size: 1.5rem;
+    color: var(--galaxy-text-muted);
+    margin-bottom: 2rem;
+}
+
+.btn-primary {
+    background-color: var(--galaxy-primary-color) !important;
+    border-color: var(--galaxy-primary-color) !important;
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    border-radius: 50px; /* Pill shape */
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 0 15px rgba(91, 127, 255, 0.5);
+}
+
+.btn-primary:hover {
+    background-color: var(--galaxy-accent-glow) !important;
+    border-color: var(--galaxy-accent-glow) !important;
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(139, 159, 255, 0.8);
+}
+
+/* Game Library Section */
+#games-section {
+    background-color: var(--galaxy-dark-background); /* Use the main dark background */
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+
+#games-section h2 {
+    color: var(--galaxy-primary-color);
+    margin-bottom: 3rem;
+}
+
+/* Game Cards */
+.game-card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.game-card {
+    background-color: var(--galaxy-darker-element);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+    overflow: hidden;
+    height: 100%; /* Ensure cards in a row have same height */
+    display: flex;
+    flex-direction: column;
+}
+
+.game-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 15px 30px rgba(91, 127, 255, 0.4);
+    border-color: var(--galaxy-primary-color);
+}
+
+.game-card-img {
+    width: 100%;
+    height: 180px; /* Slightly taller for better previews */
+    object-fit: cover;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.game-card-title {
+    margin: 15px;
+    font-size: 1.2rem;
+    text-align: center;
+    font-weight: 600;
+    color: var(--galaxy-text-light);
+    flex-grow: 1; /* Allows title to take up available space */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Footer */
+.footer {
+    background-color: var(--galaxy-darker-element);
+    border-top: 1px solid var(--border-color);
+    color: var(--galaxy-text-muted);
+    padding: 1.5rem 0;
+    margin-top: auto; /* Pushes footer to bottom */
+}
+
+/* Specific styling for AI Assistant and Scheduler pages */
+.p-5 {
+    background-color: var(--galaxy-darker-element) !important;
+    border: 1px solid var(--border-color);
+    border-radius: 12px !important;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.lead {
+    color: var(--galaxy-text-light);
+}
+
+/* play.html specific styles - will override some if needed */
+#game-player-wrapper {
+    background: radial-gradient(circle, var(--galaxy-darker-element) 0%, var(--galaxy-dark-background) 100%) !important;
+}
+
+#control-bar {
+    background-color: var(--galaxy-darker-element) !important;
+    border-bottom: 2px solid var(--galaxy-primary-color) !important;
+}
+
+.control-btn {
+    color: var(--galaxy-text-light) !important;
+}
+
+.control-btn:hover {
+    color: var(--galaxy-primary-color) !important;
+    transform: scale(1.1);
+}
+
+#panic-btn {
+    color: #FF6B6B !important; /* A striking red for panic */
+    text-shadow: 0 0 10px rgba(255, 107, 107, 0.7);
+}
+#panic-btn:hover {
+    color: var(--galaxy-darker-element) !important; /* Text becomes dark on hover */
+    background-color: #FF6B6B !important;
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(255, 107, 107, 0.9);
+}
+
+#game-frame {
+    box-shadow: 0 0 30px rgba(91, 127, 255, 0.4) !important;
+    background-color: #000;
+}
+
+/* FullCalendar styling adjustments for Scheduler */
+#calendar {
+    background-color: var(--galaxy-darker-element) !important;
+    color: var(--galaxy-text-light);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Adjust FullCalendar specific elements if they don't theme well */
+.fc .fc-toolbar-title,
+.fc-col-header-cell-cushion,
+.fc-daygrid-day-number,
+.fc-list-event-title,
+.fc-list-event-time,
+.fc-button {
+    color: var(--galaxy-text-light) !important;
+}
+
+.fc-button-primary {
+    background-color: var(--galaxy-primary-color) !important;
+    border-color: var(--galaxy-primary-color) !important;
+}
+.fc-button-primary:hover {
+    background-color: var(--galaxy-accent-glow) !important;
+    border-color: var(--galaxy-accent-glow) !important;
+}
