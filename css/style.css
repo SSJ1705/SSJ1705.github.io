@@ -133,25 +133,21 @@ h1, h2, h3, .navbar-brand {
     left: 50%; /* Start in the middle */
     bottom: 0;
     width: 0%; /* Start hidden */
-    height: 2px;
+    height: 1px; /* Thinner underline */
     background: var(--accent-pale-purple); /* Just the pale purple color */
     transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), left 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* Hover, active, and dropdown 'show' states for all nav links */
+/* Hover and active states for all nav links */
 .navbar-nav .nav-link:hover,
-.navbar-nav .nav-link.active,
-.navbar-nav .nav-link.show /* Applies to dropdown toggle when its dropdown is open */
-{
+.navbar-nav .nav-link.active { /* .active applies when on that page */
     color: var(--accent-pale-purple) !important; /* All nav links and dropdown toggle turn pale purple */
     transform: translateY(-2px); /* Subtle lift */
 }
 
-/* Underline animation for hover, active, and dropdown 'show' states */
+/* Underline animation for hover and active states (but NOT for .show on dropdown-toggle) */
 .navbar-nav .nav-link:hover::after,
-.navbar-nav .nav-link.active::after,
-.navbar-nav .nav-link.show::after /* Applies to dropdown toggle when its dropdown is open */
-{
+.navbar-nav .nav-link.active::after { /* .active applies when on that page */
     width: 60px; /* Fixed shorter width for the bar */
     left: calc(50% - 30px); /* Adjust left to center the 60px bar */
 }
@@ -163,12 +159,9 @@ h1, h2, h3, .navbar-brand {
     box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
-    position: absolute; /* Ensures it's positioned relative to parent .nav-item */
-    left: 0; /* Align with the left edge of the dropdown toggle's parent nav-item */
+    /* `position: absolute` is default for Bootstrap dropdowns; `left: 0` aligns it to the parent li's left edge */
+    /* We'll rely on `dropdown-menu-end` in HTML for right alignment */
     min-width: max-content; /* Ensure it's wide enough for its content */
-    /* If you still have issues with dropdown going off screen on very small widths,
-       you might need to adjust 'left' to 'auto' and 'right: 0;' for small screens
-       or consider Bootstrap's responsive dropdown classes. */
 }
 
 .dropdown-item {
