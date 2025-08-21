@@ -114,6 +114,10 @@ h1, h2, h3, .navbar-brand {
     /* No text glow */
 }
 
+.navbar-nav .nav-item {
+    position: relative; /* Ensure dropdowns are correctly positioned relative to their parent nav-item */
+}
+
 .navbar-nav .nav-link {
     font-family: 'Poppins', sans-serif;
     color: var(--text-color-muted) !important; /* Muted grey for default nav links */
@@ -125,24 +129,24 @@ h1, h2, h3, .navbar-brand {
 .navbar-nav .nav-link::after {
     content: '';
     position: absolute;
-    left: 50%;
+    left: 50%; /* Start in the middle */
     bottom: 0;
     width: 0%;
     height: 2px;
-    background: linear-gradient(to right, var(--accent-muted-pink), var(--accent-muted-blue)); /* Muted accent gradient */
+    background: var(--accent-pale-purple); /* Just the pale purple color */
     transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), left 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .navbar-nav .nav-link:hover,
 .navbar-nav .nav-link.active {
-    color: var(--accent-muted-blue) !important; /* Muted blue on hover */
+    color: var(--accent-pale-purple) !important; /* All nav links now turn pale purple on hover/active */
     transform: translateY(-2px); /* Subtle lift */
 }
 
 .navbar-nav .nav-link:hover::after,
 .navbar-nav .nav-link.active::after {
-    width: 100%;
-    left: 0;
+    width: 60px; /* Fixed shorter width for the bar */
+    left: calc(50% - 30px); /* Adjust left to center the 60px bar */
 }
 
 /* Dropdown specific styling */
@@ -152,6 +156,10 @@ h1, h2, h3, .navbar-brand {
     box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
+    /* Explicitly set positioning for better control, though Bootstrap usually handles this well */
+    position: absolute; /* Ensures it's positioned relative to parent .nav-item.dropdown */
+    left: 0; /* Align with the left edge of the dropdown toggle */
+    min-width: max-content; /* Ensure it's wide enough for its content */
 }
 
 .dropdown-item {
@@ -371,7 +379,7 @@ h1, h2, h3, .navbar-brand {
 }
 
 .control-btn:hover {
-    color: var(--accent-muted-blue) !important; /* Muted blue on hover */
+    color: var(--accent-pale-purple) !important; /* Pale purple on hover */
     transform: scale(1.15); /* Slightly less bouncy */
 }
 
