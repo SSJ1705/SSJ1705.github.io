@@ -1,240 +1,410 @@
-/* Import Google Fonts - Poppins for general text, and maybe something spacey if desired */
+/* Import Google Fonts - Orbitron for futuristic headings, Poppins for readable body text */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Orbitron:wght@400;700&display=swap');
 
-/* Galaxy Theme Variables */
+/* Dark Galaxy Theme Variables */
 :root {
-    --galaxy-dark-background: #0A0A1A; /* Very dark blue/purple */
-    --galaxy-darker-element: #1C1C3A; /* Slightly lighter for elements */
-    --galaxy-primary-color: #5B7FFF; /* Bright blue for accents */
-    --galaxy-accent-glow: #8B9FFF; /* Lighter blue for glows */
-    --galaxy-text-light: #E0E0FF; /* Light text for readability */
-    --galaxy-text-muted: #A0A0C0; /* Muted text */
-    --border-color: #3A3A6A; /* Subtle border color */
+    --galaxy-deep-black: #0A0210; /* Almost black, with a hint of purple */
+    --galaxy-dark-purple: #180525; /* Dark background for elements, 50% black-like base */
+    --galaxy-primary-purple: #6A1A9E; /* Dominant purple (30%) */
+    --galaxy-accent-pink: #E03A96; /* Vibrant pink for highlights (10%) */
+    --galaxy-accent-blue: #3A96E0; /* Bright blue for secondary highlights (10%) */
+    --galaxy-text-light: #F0E6FA; /* Soft white/light purple for main text */
+    --galaxy-text-muted: #A080B0; /* Muted text for less important info */
+    --galaxy-border-glow: #4A0F6F; /* Subtle border glow color */
 }
 
+/* Base Styles */
 html {
     scroll-behavior: smooth;
 }
 
 body {
-    background-color: var(--galaxy-dark-background);
+    background-color: var(--galaxy-deep-black);
     color: var(--galaxy-text-light);
     font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
     position: relative;
-    min-height: 100vh; /* Ensure body takes full height */
+    min-height: 100vh;
+    overflow-x: hidden; /* Prevent horizontal scroll from animations */
 }
 
-/* Background Stars Effect - Optional but enhances theme */
-body::before {
+/* Background Stars and Nebula Effect */
+body::before, body::after {
     content: '';
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB2aWV3Qm94PSIwIDAgOTQwIDc4OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuMCkiLz4KPC9zdmc+'); /* Placeholder for a subtle star pattern SVG/PNG */
-    opacity: 0.1; /* Adjust for subtlety */
     z-index: -1;
-    pointer-events: none; /* Allow interaction with elements beneath */
+    pointer-events: none;
+    opacity: 0.8;
 }
-/* If you want a more complex star effect, consider a JS library or a larger background image */
 
+/* Subtle Starfield Effect */
+body::before {
+    background:
+        radial-gradient(2px 2px at 20px 30px, var(--galaxy-text-light), rgba(255,255,255,0)),
+        radial-gradient(2px 2px at 40px 70px, var(--galaxy-text-light), rgba(255,255,255,0)),
+        radial-gradient(1px 1px at 50px 100px, var(--galaxy-text-light), rgba(255,255,255,0)),
+        radial-gradient(2px 2px at 90px 40px, var(--galaxy-text-light), rgba(255,255,255,0)),
+        radial-gradient(1px 1px at 100px 10px, var(--galaxy-text-light), rgba(255,255,255,0)),
+        radial-gradient(2px 2px at 120px 80px, var(--galaxy-text-light), rgba(255,255,255,0)),
+        radial-gradient(1px 1px at 150px 50px, var(--galaxy-text-light), rgba(255,255,255,0)); /* Simplified for example, consider a pre-made star pattern for real project */
+    background-size: 300px 300px; /* Adjust for star density */
+    animation: starfield-pan 120s linear infinite;
+}
 
+/* Nebula/Gradient Overlay */
+body::after {
+    background: radial-gradient(circle at 70% 30%, rgba(106, 26, 158, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 30% 80%, rgba(224, 58, 150, 0.15) 0%, transparent 60%),
+                radial-gradient(circle at 10% 20%, rgba(58, 150, 224, 0.1) 0%, transparent 70%);
+    animation: nebula-shift 40s ease-in-out infinite alternate;
+}
+
+/* Keyframe Animations */
+@keyframes starfield-pan {
+    from { background-position: 0 0; }
+    to { background-position: 300px 300px; } /* Matches background-size */
+}
+
+@keyframes nebula-shift {
+    0% { transform: translate(0, 0) scale(1); opacity: 0.8; }
+    50% { transform: translate(5% -5%) scale(1.05); opacity: 0.75; }
+    100% { transform: translate(0, 0) scale(1); opacity: 0.8; }
+}
+
+@keyframes pulse-glow {
+    0% { box-shadow: 0 0 5px var(--galaxy-primary-purple); }
+    50% { box-shadow: 0 0 20px var(--galaxy-accent-pink), 0 0 30px var(--galaxy-primary-purple); }
+    100% { box-shadow: 0 0 5px var(--galaxy-primary-purple); }
+}
+
+@keyframes text-shine {
+    0% { text-shadow: 0 0 8px rgba(240, 230, 250, 0.2); }
+    50% { text-shadow: 0 0 15px var(--galaxy-accent-blue), 0 0 20px var(--galaxy-accent-pink); }
+    100% { text-shadow: 0 0 8px rgba(240, 230, 250, 0.2); }
+}
+
+/* Headings and Branding */
 h1, h2, h3, .navbar-brand {
-    font-family: 'Orbitron', sans-serif; /* A more tech/spacey font for headings */
+    font-family: 'Orbitron', sans-serif;
     font-weight: 700;
-    color: var(--galaxy-primary-color);
-    text-shadow: 0 0 8px rgba(91, 127, 255, 0.5); /* Subtle glow */
+    color: var(--galaxy-primary-purple);
+    text-shadow: 0 0 10px var(--galaxy-primary-purple), 0 0 20px rgba(106, 26, 158, 0.3);
 }
 
+/* Navbar */
 .navbar {
-    background-color: var(--galaxy-darker-element) !important;
-    border-bottom: 1px solid var(--border-color);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    background-color: var(--galaxy-dark-purple) !important;
+    border-bottom: 1px solid var(--galaxy-border-glow);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px); /* Subtle frosted glass effect */
+    -webkit-backdrop-filter: blur(5px);
+    animation: pulse-glow 3s infinite ease-in-out alternate;
 }
 
 .navbar-brand {
     font-size: 1.8rem;
     color: var(--galaxy-text-light) !important;
-    text-shadow: 0 0 5px rgba(224, 224, 255, 0.3);
+    animation: text-shine 3s infinite ease-in-out alternate;
 }
 
 .navbar-nav .nav-link {
     color: var(--galaxy-text-muted) !important;
-    transition: color 0.3s ease, text-shadow 0.3s ease;
+    transition: color 0.4s ease, text-shadow 0.4s ease, transform 0.3s ease;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 0%;
+    height: 2px;
+    background: linear-gradient(to right, var(--galaxy-accent-pink), var(--galaxy-accent-blue));
+    transition: width 0.3s ease-out, left 0.3s ease-out;
 }
 
 .navbar-nav .nav-link:hover,
 .navbar-nav .nav-link.active {
-    color: var(--galaxy-primary-color) !important;
-    text-shadow: 0 0 10px var(--galaxy-accent-glow);
+    color: var(--galaxy-accent-blue) !important;
+    text-shadow: 0 0 12px var(--galaxy-accent-blue), 0 0 20px rgba(58, 150, 224, 0.3);
+    transform: translateY(-2px);
 }
+
+.navbar-nav .nav-link:hover::after,
+.navbar-nav .nav-link.active::after {
+    width: 100%;
+    left: 0;
+}
+
+/* Dropdown specific styling */
+.dropdown-menu {
+    background-color: var(--galaxy-dark-purple) !important;
+    border: 1px solid var(--galaxy-border-glow);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.dropdown-item {
+    color: var(--galaxy-text-muted) !important;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dropdown-item:hover,
+.dropdown-item.active {
+    background-color: var(--galaxy-primary-purple) !important;
+    color: var(--galaxy-text-light) !important;
+    text-shadow: 0 0 8px var(--galaxy-accent-blue);
+}
+
 
 /* Hero Section */
 .hero-section {
-    min-height: 70vh;
-    background: linear-gradient(rgba(10, 10, 26, 0.8), rgba(10, 10, 26, 0.8)), url('../assets/images/hero-background-galaxy.jpg') no-repeat center center/cover;
+    min-height: 80vh; /* Make it taller to showcase the background */
+    background: linear-gradient(rgba(10, 2, 16, 0.85), rgba(10, 2, 16, 0.85)), url('../assets/images/hero-background-galaxy.jpg') no-repeat center center/cover;
     background-attachment: fixed;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--galaxy-text-light);
     text-align: center;
+    position: relative; /* For nested animations */
+    overflow: hidden; /* Ensure no overflow from children animations */
 }
 
 .hero-section h1 {
-    font-size: 4.5rem;
+    font-size: 5rem;
     margin-bottom: 1rem;
     line-height: 1.2;
-    text-shadow: 0 0 15px rgba(91, 127, 255, 0.7);
+    text-shadow: 0 0 20px var(--galaxy-accent-pink), 0 0 30px var(--galaxy-primary-purple);
+    animation: text-shine 4s infinite ease-in-out alternate;
 }
 
 .hero-section p.lead {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     color: var(--galaxy-text-muted);
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
+    animation: fadeIn 2s ease-out 0.5s forwards; /* Delayed fade in */
+    opacity: 0; /* Start hidden */
 }
 
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
 .btn-primary {
-    background-color: var(--galaxy-primary-color) !important;
-    border-color: var(--galaxy-primary-color) !important;
-    padding: 12px 30px;
-    font-size: 1.2rem;
-    border-radius: 50px; /* Pill shape */
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0 0 15px rgba(91, 127, 255, 0.5);
+    background: linear-gradient(90deg, var(--galaxy-primary-purple) 0%, var(--galaxy-accent-blue) 100%) !important;
+    border: none !important;
+    padding: 15px 40px;
+    font-size: 1.3rem;
+    border-radius: 50px;
+    transition: all 0.4s ease-in-out;
+    box-shadow: 0 0 15px var(--galaxy-primary-purple);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: all 0.6s ease;
+    z-index: -1;
 }
 
 .btn-primary:hover {
-    background-color: var(--galaxy-accent-glow) !important;
-    border-color: var(--galaxy-accent-glow) !important;
-    transform: scale(1.05);
-    box-shadow: 0 0 25px rgba(139, 159, 255, 0.8);
+    transform: scale(1.08);
+    box-shadow: 0 0 25px var(--galaxy-accent-pink), 0 0 40px var(--galaxy-accent-blue);
+    color: var(--galaxy-text-light); /* Ensure text remains visible */
 }
+
+.btn-primary:hover::before {
+    left: 100%;
+}
+
 
 /* Game Library Section */
 #games-section {
-    background-color: var(--galaxy-dark-background); /* Use the main dark background */
-    padding-top: 5rem;
-    padding-bottom: 5rem;
+    background-color: var(--galaxy-deep-black);
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+    position: relative;
 }
 
 #games-section h2 {
-    color: var(--galaxy-primary-color);
-    margin-bottom: 3rem;
+    color: var(--galaxy-accent-pink);
+    margin-bottom: 4rem;
+    text-shadow: 0 0 15px var(--galaxy-accent-pink), 0 0 25px rgba(224, 58, 150, 0.4);
+    animation: text-shine 3.5s infinite ease-in-out alternate;
 }
 
 /* Game Cards */
 .game-card-link {
     text-decoration: none;
     color: inherit;
+    display: block; /* Make the whole card clickable */
 }
 
 .game-card {
-    background-color: var(--galaxy-darker-element);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
+    background-color: var(--galaxy-dark-purple);
+    border: 1px solid var(--galaxy-border-glow);
+    border-radius: 15px;
     cursor: pointer;
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+    transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out, border-color 0.4s ease-in-out;
     overflow: hidden;
-    height: 100%; /* Ensure cards in a row have same height */
+    height: 100%;
     display: flex;
     flex-direction: column;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.game-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, var(--galaxy-accent-blue) 0%, transparent 20%);
+    opacity: 0;
+    transform: scale(0);
+    transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.game-card:hover::before {
+    opacity: 0.1;
+    transform: scale(1);
 }
 
 .game-card:hover {
-    transform: translateY(-15px);
-    box-shadow: 0 15px 30px rgba(91, 127, 255, 0.4);
-    border-color: var(--galaxy-primary-color);
+    transform: translateY(-20px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6), 0 0 25px var(--galaxy-accent-pink), 0 0 40px var(--galaxy-accent-blue);
+    border-color: var(--galaxy-accent-blue);
+    z-index: 10; /* Bring hovered card to front */
 }
 
 .game-card-img {
     width: 100%;
-    height: 180px; /* Slightly taller for better previews */
+    height: 200px; /* Slightly taller for better previews */
     object-fit: cover;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--galaxy-border-glow);
+    position: relative;
+    z-index: 1; /* Keep image above pseudo-element */
+    transition: transform 0.3s ease;
+}
+
+.game-card:hover .game-card-img {
+    transform: scale(1.05);
 }
 
 .game-card-title {
-    margin: 15px;
-    font-size: 1.2rem;
+    margin: 20px;
+    font-size: 1.3rem;
     text-align: center;
     font-weight: 600;
     color: var(--galaxy-text-light);
-    flex-grow: 1; /* Allows title to take up available space */
+    flex-grow: 1;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    z-index: 1;
 }
 
 /* Footer */
 .footer {
-    background-color: var(--galaxy-darker-element);
-    border-top: 1px solid var(--border-color);
+    background-color: var(--galaxy-dark-purple);
+    border-top: 1px solid var(--galaxy-border-glow);
     color: var(--galaxy-text-muted);
-    padding: 1.5rem 0;
-    margin-top: auto; /* Pushes footer to bottom */
+    padding: 2rem 0;
+    margin-top: auto;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
 }
 
 /* Specific styling for AI Assistant and Scheduler pages */
 .p-5 {
-    background-color: var(--galaxy-darker-element) !important;
-    border: 1px solid var(--border-color);
-    border-radius: 12px !important;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    background-color: var(--galaxy-dark-purple) !important;
+    border: 1px solid var(--galaxy-border-glow);
+    border-radius: 15px !important;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.4);
+    animation: pulse-glow 3s infinite ease-in-out alternate;
 }
 
 .lead {
     color: var(--galaxy-text-light);
+    animation: fadeIn 2s ease-out 0.5s forwards;
+    opacity: 0;
 }
 
 /* play.html specific styles - will override some if needed */
 #game-player-wrapper {
-    background: radial-gradient(circle, var(--galaxy-darker-element) 0%, var(--galaxy-dark-background) 100%) !important;
+    background: radial-gradient(circle, var(--galaxy-dark-purple) 0%, var(--galaxy-deep-black) 100%) !important;
 }
 
 #control-bar {
-    background-color: var(--galaxy-darker-element) !important;
-    border-bottom: 2px solid var(--galaxy-primary-color) !important;
+    background-color: var(--galaxy-dark-purple) !important;
+    border-bottom: 2px solid var(--galaxy-primary-purple) !important;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+#brand {
+    color: var(--galaxy-text-light);
+    text-shadow: 0 0 8px var(--galaxy-accent-blue);
 }
 
 .control-btn {
-    color: var(--galaxy-text-light) !important;
+    color: var(--galaxy-text-muted) !important;
+    transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
 }
 
 .control-btn:hover {
-    color: var(--galaxy-primary-color) !important;
-    transform: scale(1.1);
+    color: var(--galaxy-accent-blue) !important;
+    transform: scale(1.2);
+    text-shadow: 0 0 15px var(--galaxy-accent-blue);
 }
 
 #panic-btn {
-    color: #FF6B6B !important; /* A striking red for panic */
-    text-shadow: 0 0 10px rgba(255, 107, 107, 0.7);
+    color: var(--galaxy-accent-pink) !important; /* Striking pink for panic */
+    text-shadow: 0 0 15px var(--galaxy-accent-pink), 0 0 25px rgba(224, 58, 150, 0.7);
 }
 #panic-btn:hover {
-    color: var(--galaxy-darker-element) !important; /* Text becomes dark on hover */
-    background-color: #FF6B6B !important;
-    border-radius: 5px;
-    box-shadow: 0 0 15px rgba(255, 107, 107, 0.9);
+    color: var(--galaxy-deep-black) !important; /* Dark text on hover */
+    background-color: var(--galaxy-accent-pink) !important;
+    border-radius: 8px;
+    box-shadow: 0 0 20px var(--galaxy-accent-pink), 0 0 35px rgba(224, 58, 150, 0.9);
 }
 
 #game-frame {
-    box-shadow: 0 0 30px rgba(91, 127, 255, 0.4) !important;
+    box-shadow: 0 0 40px var(--galaxy-primary-purple), 0 0 60px rgba(106, 26, 158, 0.4) !important;
     background-color: #000;
 }
 
 /* FullCalendar styling adjustments for Scheduler */
 #calendar {
-    background-color: var(--galaxy-darker-element) !important;
+    background-color: var(--galaxy-dark-purple) !important;
     color: var(--galaxy-text-light);
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
 }
 
-/* Adjust FullCalendar specific elements if they don't theme well */
 .fc .fc-toolbar-title,
 .fc-col-header-cell-cushion,
 .fc-daygrid-day-number,
@@ -242,13 +412,37 @@ h1, h2, h3, .navbar-brand {
 .fc-list-event-time,
 .fc-button {
     color: var(--galaxy-text-light) !important;
+    font-family: 'Poppins', sans-serif;
 }
 
 .fc-button-primary {
-    background-color: var(--galaxy-primary-color) !important;
-    border-color: var(--galaxy-primary-color) !important;
+    background-color: var(--galaxy-primary-purple) !important;
+    border-color: var(--galaxy-primary-purple) !important;
+    box-shadow: 0 0 10px rgba(106, 26, 158, 0.5);
+    transition: all 0.3s ease;
 }
 .fc-button-primary:hover {
-    background-color: var(--galaxy-accent-glow) !important;
-    border-color: var(--galaxy-accent-glow) !important;
+    background-color: var(--galaxy-accent-pink) !important;
+    border-color: var(--galaxy-accent-pink) !important;
+    box-shadow: 0 0 15px var(--galaxy-accent-pink);
+    transform: translateY(-2px);
+}
+
+/* Scrollbar styling for a galaxy look */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--galaxy-dark-purple);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, var(--galaxy-primary-purple), var(--galaxy-accent-blue));
+    border-radius: 10px;
+    border: 2px solid var(--galaxy-dark-purple);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, var(--galaxy-accent-pink), var(--galaxy-accent-blue));
 }
