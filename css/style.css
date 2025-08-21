@@ -115,7 +115,7 @@ h1, h2, h3, .navbar-brand {
 }
 
 .navbar-nav .nav-item {
-    position: relative; /* Ensure dropdowns are correctly positioned relative to their parent nav-item */
+    position: relative; /* Crucial for dropdown positioning */
 }
 
 .navbar-nav .nav-link {
@@ -126,25 +126,32 @@ h1, h2, h3, .navbar-brand {
     padding-bottom: 5px;
 }
 
+/* Underline effect for all nav links (including dropdown toggles) */
 .navbar-nav .nav-link::after {
     content: '';
     position: absolute;
     left: 50%; /* Start in the middle */
     bottom: 0;
-    width: 0%;
+    width: 0%; /* Start hidden */
     height: 2px;
     background: var(--accent-pale-purple); /* Just the pale purple color */
     transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), left 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
+/* Hover, active, and dropdown 'show' states for all nav links */
 .navbar-nav .nav-link:hover,
-.navbar-nav .nav-link.active {
-    color: var(--accent-pale-purple) !important; /* All nav links now turn pale purple on hover/active */
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link.show /* Applies to dropdown toggle when its dropdown is open */
+{
+    color: var(--accent-pale-purple) !important; /* All nav links and dropdown toggle turn pale purple */
     transform: translateY(-2px); /* Subtle lift */
 }
 
+/* Underline animation for hover, active, and dropdown 'show' states */
 .navbar-nav .nav-link:hover::after,
-.navbar-nav .nav-link.active::after {
+.navbar-nav .nav-link.active::after,
+.navbar-nav .nav-link.show::after /* Applies to dropdown toggle when its dropdown is open */
+{
     width: 60px; /* Fixed shorter width for the bar */
     left: calc(50% - 30px); /* Adjust left to center the 60px bar */
 }
@@ -156,10 +163,12 @@ h1, h2, h3, .navbar-brand {
     box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
-    /* Explicitly set positioning for better control, though Bootstrap usually handles this well */
-    position: absolute; /* Ensures it's positioned relative to parent .nav-item.dropdown */
-    left: 0; /* Align with the left edge of the dropdown toggle */
+    position: absolute; /* Ensures it's positioned relative to parent .nav-item */
+    left: 0; /* Align with the left edge of the dropdown toggle's parent nav-item */
     min-width: max-content; /* Ensure it's wide enough for its content */
+    /* If you still have issues with dropdown going off screen on very small widths,
+       you might need to adjust 'left' to 'auto' and 'right: 0;' for small screens
+       or consider Bootstrap's responsive dropdown classes. */
 }
 
 .dropdown-item {
