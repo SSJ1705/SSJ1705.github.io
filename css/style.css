@@ -1,17 +1,17 @@
-/* Import Google Fonts - Inter for headings (professional/bubbly), Poppins for body (clean/readable) */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+/* Import Google Fonts - Inter for headings (modern/clean), Poppins for body (readable) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
 
-/* Dark Galaxy Theme Variables (Refined Palette) */
+/* Dark Galaxy Theme Variables (Refined Palette: Dark Grey, Pale Purple) */
 :root {
-    --galaxy-deep-black: #0C0214;     /* Very dark, almost black with a purple tint (50% black base) */
-    --galaxy-dark-purple: #1E082E;    /* Dark background for elements, richer purple */
-    --galaxy-primary-purple: #7A2AA8; /* Deep, rich purple (30%) */
-    --galaxy-accent-pink: #C24F9A;    /* Muted, sophisticated pink (10%) */
-    --galaxy-accent-blue: #4F9AC2;    /* Muted, sophisticated blue (10%) */
-    --galaxy-text-light: #F0E6FA;     /* Soft white/light purple for main text */
-    --galaxy-text-muted: #A080B0;     /* Muted text for less important info */
-    --galaxy-border-subtle: #3E1855;  /* Soft, deeper border color */
-    --galaxy-hover-glow: rgba(122, 42, 168, 0.4); /* Softer glow for interaction */
+    --main-background: #121212;      /* Very dark grey, primary background (closer to 50% black) */
+    --element-background: #1C1C1C;   /* Slightly lighter dark grey for cards, navbar (closer to 30% black) */
+    --accent-pale-purple: #B28FCE;   /* Lighter, paler purple (main purple accent) */
+    --accent-muted-pink: #D78FD7;    /* Muted pink accent */
+    --accent-muted-blue: #8FD7D7;    /* Muted blue accent */
+    --text-color-light: #E0E0E0;     /* Light grey for main text */
+    --text-color-muted: #A0A0A0;     /* Muted grey for secondary text */
+    --border-color-soft: #333333;    /* Soft border color */
+    --hover-glow-soft: rgba(178, 143, 206, 0.3); /* Soft glow for interaction (from pale purple) */
 }
 
 /* Base Styles */
@@ -20,8 +20,8 @@ html {
 }
 
 body {
-    background-color: var(--galaxy-deep-black);
-    color: var(--galaxy-text-light);
+    background-color: var(--main-background);
+    color: var(--text-color-light);
     font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
@@ -30,7 +30,7 @@ body {
     overflow-x: hidden; /* Prevent horizontal scroll from animations */
 }
 
-/* Background Stars and Nebula Effect - Kept but animations may be subtle */
+/* Background Stars and Nebula Effect (Very Subtle) */
 body::before, body::after {
     content: '';
     position: fixed;
@@ -46,77 +46,77 @@ body::before, body::after {
 /* Subtle Starfield Effect */
 body::before {
     background:
-        radial-gradient(1.5px 1.5px at 20% 30%, var(--galaxy-text-light), transparent),
-        radial-gradient(1.5px 1.5px at 40% 70%, var(--galaxy-text-light), transparent),
-        radial-gradient(1px 1px at 50% 100%, var(--galaxy-text-light), transparent),
-        radial-gradient(1.5px 1.5px at 90% 40%, var(--galaxy-text-light), transparent),
-        radial-gradient(1px 1px at 100% 10%, var(--galaxy-text-light), transparent),
-        radial-gradient(1.5px 1.5px at 120px 80px, var(--galaxy-text-light), transparent),
-        radial-gradient(1px 1px at 150px 50px, var(--galaxy-text-light), transparent);
+        radial-gradient(1.5px 1.5px at 20% 30%, var(--text-color-light), transparent),
+        radial-gradient(1.5px 1.5px at 40% 70%, var(--text-color-light), transparent),
+        radial-gradient(1px 1px at 50% 100%, var(--text-color-light), transparent),
+        radial-gradient(1.5px 1.5px at 90% 40%, var(--text-color-light), transparent),
+        radial-gradient(1px 1px at 100% 10%, var(--text-color-light), transparent),
+        radial-gradient(1.5px 1.5px at 120px 80px, var(--text-color-light), transparent),
+        radial-gradient(1px 1px at 150px 50px, var(--text-color-light), transparent);
     background-size: 300px 300px;
-    animation: starfield-pan 180s linear infinite; /* Slower pan */
-    opacity: 0.2; /* Very subtle */
+    animation: starfield-pan 200s linear infinite; /* Slower pan */
+    opacity: 0.1; /* Even more subtle */
 }
 
 /* Nebula/Gradient Overlay */
 body::after {
-    background: radial-gradient(circle at 70% 30%, rgba(122, 42, 168, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 30% 80%, rgba(194, 79, 154, 0.1) 0%, transparent 60%),
-                radial-gradient(circle at 10% 20%, rgba(79, 154, 194, 0.08) 0%, transparent 70%);
-    animation: nebula-shift 50s ease-in-out infinite alternate; /* Slower shift */
-    opacity: 0.7;
+    background: radial-gradient(circle at 70% 30%, rgba(178, 143, 206, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 30% 80%, rgba(215, 143, 215, 0.08) 0%, transparent 60%),
+                radial-gradient(circle at 10% 20%, rgba(143, 215, 215, 0.06) 0%, transparent 70%);
+    animation: nebula-shift 60s ease-in-out infinite alternate; /* Slower shift */
+    opacity: 0.6;
 }
 
-/* Keyframe Animations */
+/* Keyframe Animations (Softened) */
 @keyframes starfield-pan {
     from { background-position: 0 0; }
     to { background-position: 300px 300px; }
 }
 
 @keyframes nebula-shift {
-    0% { transform: translate(0, 0) scale(1); opacity: 0.7; }
-    50% { transform: translate(3% -3%) scale(1.02); opacity: 0.65; }
-    100% { transform: translate(0, 0) scale(1); opacity: 0.7; }
+    0% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+    50% { transform: translate(2% -2%) scale(1.01); opacity: 0.55; }
+    100% { transform: translate(0, 0) scale(1); opacity: 0.6; }
 }
 
 @keyframes subtle-pulse {
-    0% { box-shadow: 0 0 5px rgba(0,0,0,0.3); }
-    50% { box-shadow: 0 0 15px var(--galaxy-hover-glow); }
-    100% { box-shadow: 0 0 5px rgba(0,0,0,0.3); }
+    0% { box-shadow: 0 0 5px rgba(0,0,0,0.2); }
+    50% { box-shadow: 0 0 10px var(--hover-glow-soft); }
+    100% { box-shadow: 0 0 5px rgba(0,0,0,0.2); }
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
+    from { opacity: 0; transform: translateY(15px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
 /* Headings and Branding */
 h1, h2, h3, .navbar-brand {
-    font-family: 'Inter', sans-serif; /* New font for headings */
+    font-family: 'Inter', sans-serif; /* Modern, slightly rounded feel */
     font-weight: 700;
-    color: var(--galaxy-primary-purple);
-    /* No text-shadow/glow for fonts */
+    color: var(--accent-pale-purple); /* Pale purple for main titles */
+    /* No text shadow/glow */
 }
 
 /* Navbar */
 .navbar {
-    background-color: var(--galaxy-dark-purple) !important;
-    border-bottom: 1px solid var(--galaxy-border-subtle);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(8px); /* Slightly stronger blur for depth */
-    -webkit-backdrop-filter: blur(8px);
-    animation: subtle-pulse 4s infinite ease-in-out alternate; /* Softer animation */
+    background-color: var(--element-background) !important;
+    border-bottom: 1px solid var(--border-color-soft);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(6px); /* Adjusted blur */
+    -webkit-backdrop-filter: blur(6px);
+    animation: subtle-pulse 5s infinite ease-in-out alternate; /* Slower, softer pulse */
 }
 
 .navbar-brand {
     font-size: 1.8rem;
-    color: var(--galaxy-text-light) !important;
+    color: var(--accent-pale-purple) !important; /* Pale purple for brand */
     /* No text glow */
 }
 
 .navbar-nav .nav-link {
-    font-family: 'Poppins', sans-serif; /* Normal font for nav links */
-    color: var(--galaxy-text-muted) !important;
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-color-muted) !important; /* Muted grey for default nav links */
     transition: color 0.3s ease, transform 0.2s ease;
     position: relative;
     padding-bottom: 5px;
@@ -129,14 +129,14 @@ h1, h2, h3, .navbar-brand {
     bottom: 0;
     width: 0%;
     height: 2px;
-    background: linear-gradient(to right, var(--galaxy-accent-pink), var(--galaxy-accent-blue));
-    transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), left 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Bubbly/ease-out timing */
+    background: linear-gradient(to right, var(--accent-muted-pink), var(--accent-muted-blue)); /* Muted accent gradient */
+    transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), left 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .navbar-nav .nav-link:hover,
 .navbar-nav .nav-link.active {
-    color: var(--galaxy-accent-blue) !important;
-    transform: translateY(-3px); /* Subtle lift */
+    color: var(--accent-muted-blue) !important; /* Muted blue on hover */
+    transform: translateY(-2px); /* Subtle lift */
 }
 
 .navbar-nav .nav-link:hover::after,
@@ -147,34 +147,34 @@ h1, h2, h3, .navbar-brand {
 
 /* Dropdown specific styling */
 .dropdown-menu {
-    background-color: var(--galaxy-dark-purple) !important;
-    border: 1px solid var(--galaxy-border-subtle);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background-color: var(--element-background) !important;
+    border: 1px solid var(--border-color-soft);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
 }
 
 .dropdown-item {
-    color: var(--galaxy-text-muted) !important;
+    color: var(--text-color-muted) !important;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .dropdown-item:hover,
 .dropdown-item.active {
-    background-color: var(--galaxy-primary-purple) !important;
-    color: var(--galaxy-text-light) !important;
+    background-color: var(--accent-pale-purple) !important;
+    color: var(--text-color-light) !important;
 }
 
 
 /* Hero Section */
 .hero-section {
     min-height: 80vh;
-    background: linear-gradient(rgba(12, 2, 20, 0.9), rgba(12, 2, 20, 0.9)), url('../assets/images/hero-background-galaxy.jpg') no-repeat center center/cover;
+    background: linear-gradient(rgba(18, 18, 18, 0.88), rgba(18, 18, 18, 0.88)), url('../assets/images/hero-background-galaxy.jpg') no-repeat center center/cover;
     background-attachment: fixed;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--galaxy-text-light);
+    color: var(--text-color-light);
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -184,31 +184,31 @@ h1, h2, h3, .navbar-brand {
     font-size: 5rem;
     margin-bottom: 1rem;
     line-height: 1.2;
-    /* No text glow */
-    animation: fadeIn 2s ease-out 0.2s forwards;
+    color: var(--accent-pale-purple); /* Pale purple for hero heading */
+    animation: fadeIn 1.8s ease-out 0.2s forwards;
     opacity: 0;
 }
 
 .hero-section p.lead {
     font-size: 1.6rem;
-    color: var(--galaxy-text-muted);
+    color: var(--text-color-muted); /* Muted grey for lead text */
     margin-bottom: 2.5rem;
-    animation: fadeIn 2s ease-out 0.5s forwards;
+    animation: fadeIn 1.8s ease-out 0.5s forwards;
     opacity: 0;
 }
 
 .btn-primary {
-    background: linear-gradient(90deg, var(--galaxy-primary-purple) 0%, var(--galaxy-accent-blue) 100%) !important;
+    background: linear-gradient(90deg, var(--accent-pale-purple) 0%, var(--accent-muted-blue) 100%) !important;
     border: none !important;
     padding: 15px 40px;
     font-size: 1.3rem;
     border-radius: 50px; /* Bubbly shape */
     transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Bubbly bounce effect */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.4); /* Softer shadow */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Softer shadow */
     position: relative;
     overflow: hidden;
     z-index: 1;
-    animation: fadeIn 2s ease-out 0.8s forwards;
+    animation: fadeIn 1.8s ease-out 0.8s forwards;
     opacity: 0;
 }
 
@@ -219,15 +219,15 @@ h1, h2, h3, .navbar-brand {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); /* Softer shimmer */
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); /* Very subtle shimmer */
     transition: all 0.6s ease;
     z-index: -1;
 }
 
 .btn-primary:hover {
-    transform: scale(1.1); /* More pronounced bubble effect */
-    box-shadow: 0 8px 25px rgba(0,0,0,0.6), 0 0 30px var(--galaxy-accent-pink); /* Stronger but still soft glow on hover */
-    color: var(--galaxy-text-light);
+    transform: scale(1.08); /* Reduced scale for less 'bubbly' but still responsive */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5), 0 0 20px var(--accent-muted-pink); /* Softer, muted pink glow on hover */
+    color: var(--text-color-light);
 }
 
 .btn-primary:hover::before {
@@ -237,16 +237,16 @@ h1, h2, h3, .navbar-brand {
 
 /* Game Library Section */
 #games-section {
-    background-color: var(--galaxy-deep-black);
+    background-color: var(--main-background);
     padding-top: 6rem;
     padding-bottom: 6rem;
     position: relative;
 }
 
 #games-section h2 {
-    color: var(--galaxy-accent-pink);
+    color: var(--text-color-light); /* Main text color for heading */
     margin-bottom: 4rem;
-    /* No text glow */
+    /* No glow */
 }
 
 /* Game Cards */
@@ -257,11 +257,11 @@ h1, h2, h3, .navbar-brand {
 }
 
 .game-card {
-    background-color: var(--galaxy-dark-purple);
-    border: 1px solid var(--galaxy-border-subtle);
-    border-radius: 20px; /* More bubbly rounded corners */
+    background-color: var(--element-background);
+    border: 1px solid var(--border-color-soft);
+    border-radius: 20px; /* More rounded corners for bubbly feel */
     cursor: pointer;
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease-in-out, border-color 0.4s ease-in-out; /* Bubbly transition */
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s ease-in-out, border-color 0.4s ease-in-out;
     overflow: hidden;
     height: 100%;
     display: flex;
@@ -277,7 +277,7 @@ h1, h2, h3, .navbar-brand {
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle, var(--galaxy-accent-blue) 0%, transparent 20%);
+    background: radial-gradient(circle, var(--accent-muted-blue) 0%, transparent 20%);
     opacity: 0;
     transform: scale(0);
     transition: opacity 0.4s ease-out, transform 0.4s ease-out;
@@ -286,14 +286,14 @@ h1, h2, h3, .navbar-brand {
 }
 
 .game-card:hover::before {
-    opacity: 0.1;
+    opacity: 0.08; /* Very subtle light */
     transform: scale(1);
 }
 
 .game-card:hover {
-    transform: translateY(-15px) scale(1.03); /* Subtle lift and slight expansion */
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6), 0 0 20px var(--galaxy-accent-pink); /* Softer, richer glow */
-    border-color: var(--galaxy-accent-blue);
+    transform: translateY(-12px) scale(1.02); /* Less pronounced lift */
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5), 0 0 15px var(--hover-glow-soft); /* Softer overall glow */
+    border-color: var(--accent-pale-purple); /* Pale purple border on hover */
     z-index: 10;
 }
 
@@ -301,14 +301,14 @@ h1, h2, h3, .navbar-brand {
     width: 100%;
     height: 200px;
     object-fit: cover;
-    border-bottom: 1px solid var(--galaxy-border-subtle);
+    border-bottom: 1px solid var(--border-color-soft);
     position: relative;
     z-index: 1;
     transition: transform 0.3s ease;
 }
 
 .game-card:hover .game-card-img {
-    transform: scale(1.05);
+    transform: scale(1.03); /* Slight scale */
 }
 
 .game-card-title {
@@ -316,7 +316,7 @@ h1, h2, h3, .navbar-brand {
     font-size: 1.3rem;
     text-align: center;
     font-weight: 600;
-    color: var(--galaxy-text-light);
+    color: var(--text-color-light); /* Main text color for titles */
     flex-grow: 1;
     display: flex;
     align-items: center;
@@ -327,78 +327,76 @@ h1, h2, h3, .navbar-brand {
 
 /* Footer */
 .footer {
-    background-color: var(--galaxy-dark-purple);
-    border-top: 1px solid var(--galaxy-border-subtle);
-    color: var(--galaxy-text-muted);
+    background-color: var(--element-background);
+    border-top: 1px solid var(--border-color-soft);
+    color: var(--text-color-muted);
     padding: 2rem 0;
     margin-top: auto;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* Specific styling for AI Assistant and Scheduler pages */
 .p-5 {
-    background-color: var(--galaxy-dark-purple) !important;
-    border: 1px solid var(--galaxy-border-subtle);
+    background-color: var(--element-background) !important;
+    border: 1px solid var(--border-color-soft);
     border-radius: 15px !important;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
-    animation: subtle-pulse 4s infinite ease-in-out alternate;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    animation: subtle-pulse 5s infinite ease-in-out alternate;
 }
 
 .lead {
-    color: var(--galaxy-text-light);
-    animation: fadeIn 2s ease-out 0.5s forwards;
+    color: var(--text-color-light); /* Main text color for lead text */
+    animation: fadeIn 1.8s ease-out 0.5s forwards;
     opacity: 0;
 }
 
 /* play.html specific styles */
 #game-player-wrapper {
-    background: radial-gradient(circle, var(--galaxy-dark-purple) 0%, var(--galaxy-deep-black) 100%) !important;
+    background: radial-gradient(circle, var(--element-background) 0%, var(--main-background) 100%) !important;
 }
 
 #control-bar {
-    background-color: var(--galaxy-dark-purple) !important;
-    border-bottom: 2px solid var(--galaxy-primary-purple) !important;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    background-color: var(--element-background) !important;
+    border-bottom: 2px solid var(--accent-pale-purple) !important;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
 }
 
 #brand {
-    color: var(--galaxy-text-light);
-    /* No text glow */
+    color: var(--accent-pale-purple); /* Pale purple for brand on game page */
 }
 
 .control-btn {
-    color: var(--galaxy-text-muted) !important;
+    color: var(--text-color-muted) !important;
     transition: color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.3s ease;
 }
 
 .control-btn:hover {
-    color: var(--galaxy-accent-blue) !important;
-    transform: scale(1.2); /* Bubbly scale */
+    color: var(--accent-muted-blue) !important; /* Muted blue on hover */
+    transform: scale(1.15); /* Slightly less bouncy */
 }
 
 #panic-btn {
-    color: var(--galaxy-accent-pink) !important;
-    /* No text glow */
+    color: var(--accent-muted-pink) !important; /* Muted pink for panic */
 }
 #panic-btn:hover {
-    color: var(--galaxy-deep-black) !important;
-    background-color: var(--galaxy-accent-pink) !important;
+    color: var(--main-background) !important;
+    background-color: var(--accent-muted-pink) !important;
     border-radius: 8px;
-    box-shadow: 0 0 20px rgba(194, 79, 154, 0.7); /* Softer pink glow */
+    box-shadow: 0 0 15px rgba(215, 143, 215, 0.6); /* Softer pink glow */
 }
 
 #game-frame {
-    box-shadow: 0 0 30px var(--galaxy-primary-purple), 0 0 50px rgba(122, 42, 168, 0.3) !important; /* Softer, deeper glow */
+    box-shadow: 0 0 25px var(--accent-pale-purple), 0 0 40px rgba(178, 143, 206, 0.3) !important; /* Softer, paler glow */
     background-color: #000;
 }
 
 /* FullCalendar styling adjustments for Scheduler */
 #calendar {
-    background-color: var(--galaxy-dark-purple) !important;
-    color: var(--galaxy-text-light);
+    background-color: var(--element-background) !important;
+    color: var(--text-color-light);
     padding: 30px;
     border-radius: 15px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 
 .fc .fc-toolbar-title,
@@ -407,38 +405,38 @@ h1, h2, h3, .navbar-brand {
 .fc-list-event-title,
 .fc-list-event-time,
 .fc-button {
-    color: var(--galaxy-text-light) !important;
+    color: var(--text-color-light) !important; /* Main text color for calendar elements */
     font-family: 'Poppins', sans-serif;
 }
 
 .fc-button-primary {
-    background-color: var(--galaxy-primary-purple) !important;
-    border-color: var(--galaxy-primary-purple) !important;
-    box-shadow: 0 0 10px rgba(122, 42, 168, 0.3); /* Softer button glow */
+    background-color: var(--accent-pale-purple) !important;
+    border-color: var(--accent-pale-purple) !important;
+    box-shadow: 0 0 8px rgba(178, 143, 206, 0.3); /* Softer button glow */
     transition: all 0.3s ease;
 }
 .fc-button-primary:hover {
-    background-color: var(--galaxy-accent-pink) !important;
-    border-color: var(--galaxy-accent-pink) !important;
-    box-shadow: 0 0 15px rgba(194, 79, 154, 0.5); /* Softer pink glow on hover */
+    background-color: var(--accent-muted-pink) !important;
+    border-color: var(--accent-muted-pink) !important;
+    box-shadow: 0 0 12px rgba(215, 143, 215, 0.5); /* Softer pink glow on hover */
     transform: translateY(-2px);
 }
 
 /* Scrollbar styling for a galaxy look */
 ::-webkit-scrollbar {
-    width: 12px;
+    width: 10px; /* Slightly thinner */
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--galaxy-dark-purple);
+    background: var(--element-background);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(to bottom, var(--galaxy-primary-purple), var(--galaxy-accent-blue));
-    border-radius: 10px;
-    border: 2px solid var(--galaxy-dark-purple);
+    background: linear-gradient(to bottom, var(--accent-pale-purple), var(--accent-muted-blue));
+    border-radius: 8px; /* More rounded */
+    border: 2px solid var(--element-background);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(to bottom, var(--galaxy-accent-pink), var(--galaxy-accent-blue));
+    background: linear-gradient(to bottom, var(--accent-muted-pink), var(--accent-muted-blue));
 }
