@@ -115,59 +115,31 @@ h1, h2, h3, .navbar-brand {
 }
 
 .navbar-nav .nav-item {
-    position: relative; /* Crucial for dropdown positioning */
+    position: relative;
+    /* Added some right margin for spacing between buttons */
+    margin-right: 10px;
 }
 
 .navbar-nav .nav-link {
     font-family: 'Poppins', sans-serif;
-    color: var(--text-color-muted) !important; /* Muted grey for default nav links */
-    transition: color 0.3s ease, transform 0.2s ease;
+    color: var(--text-color-muted) !important;
+    transition: color 0.3s ease, transform 0.2s ease, background-color 0.3s ease, box-shadow 0.3s ease; /* Added background and shadow to transition */
     position: relative;
-    padding-bottom: 5px;
-    display: inline-flex; /* Ensure the underline only takes up text width initially */
-    align-items: center; /* Vertically align dropdown arrow */
+    padding: 8px 15px; /* Button-like padding */
+    border-radius: 20px; /* Rounded corners for buttons */
+    /* Remove underline styles */
+    /* ::after pseudo-element is no longer used for buttons */
 }
 
-/* Default state for the underline (hidden) */
-.navbar-nav .nav-link::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    bottom: 0;
-    width: 0%;
-    height: 1px; /* Thinner underline */
-    background: var(--accent-pale-purple);
-    transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), left 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-/* Text color on hover, active, and dropdown toggle show/active */
+/* Text color and background for buttons on hover, active, and dropdown toggle show/active */
 .navbar-nav .nav-link:hover,
 .navbar-nav .nav-link.active,
 .navbar-nav .nav-link.show { /* For dropdown toggle when open */
     color: var(--accent-pale-purple) !important;
-    transform: translateY(-2px);
+    background-color: rgba(178, 143, 206, 0.15); /* Soft pale purple background */
+    transform: translateY(-2px); /* Subtle lift */
+    box-shadow: 0 0 10px rgba(178, 143, 206, 0.3); /* Soft glow around button */
 }
-
-/* Underline effect for standard nav links on hover or if active */
-.navbar-nav .nav-link:not(.dropdown-toggle):hover::after,
-.navbar-nav .nav-link:not(.dropdown-toggle).active::after {
-    width: 60px; /* Fixed shorter width */
-    left: calc(50% - 30px); /* Center the 60px bar */
-}
-
-/* Underline effect specifically for the dropdown toggle ONLY if it is active (i.e., on a tool page) OR hovered */
-.navbar-nav .dropdown-toggle:hover::after,
-.navbar-nav .dropdown-toggle.active::after {
-    width: 60px; /* Fixed shorter width */
-    left: calc(50% - 30px); /* Center the 60px bar */
-}
-
-/* Ensure the underline is hidden for the dropdown toggle when it's just 'open' (.show) but not 'active' */
-.navbar-nav .dropdown-toggle.show:not(.active)::after {
-    width: 0%;
-    left: 50%;
-}
-
 
 /* Dropdown specific styling */
 .dropdown-menu {
@@ -176,9 +148,9 @@ h1, h2, h3, .navbar-brand {
     box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
-    position: absolute; /* Ensures it's positioned relative to parent .nav-item */
-    left: auto; /* Allow `right: 0` to work for `dropdown-menu-end` */
-    min-width: max-content; /* Ensure it's wide enough for its content */
+    position: absolute;
+    left: auto;
+    min-width: max-content;
 }
 
 .dropdown-item {
