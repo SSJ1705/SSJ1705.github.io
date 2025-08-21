@@ -124,38 +124,46 @@ h1, h2, h3, .navbar-brand {
     transition: color 0.3s ease, transform 0.2s ease;
     position: relative;
     padding-bottom: 5px;
+    display: inline-flex; /* Ensure the underline only takes up text width initially */
+    align-items: center; /* Vertically align dropdown arrow */
 }
 
-/* Underline effect for all nav links */
+/* Default state for the underline (hidden) */
 .navbar-nav .nav-link::after {
     content: '';
     position: absolute;
-    left: 50%; /* Start in the middle */
+    left: 50%;
     bottom: 0;
-    width: 0%; /* Start hidden */
+    width: 0%;
     height: 1px; /* Thinner underline */
-    background: var(--accent-pale-purple); /* Just the pale purple color */
+    background: var(--accent-pale-purple);
     transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), left 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* Hover and active states for all nav links */
+/* Text color on hover, active, and dropdown toggle show/active */
 .navbar-nav .nav-link:hover,
-.navbar-nav .nav-link.active { /* .active applies when on that page */
-    color: var(--accent-pale-purple) !important; /* All nav links and dropdown toggle turn pale purple */
-    transform: translateY(-2px); /* Subtle lift */
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link.show { /* For dropdown toggle when open */
+    color: var(--accent-pale-purple) !important;
+    transform: translateY(-2px);
 }
 
-/* Underline animation for hover and active states (but NOT for dropdown toggle when only .show is present) */
-.navbar-nav .nav-link:hover::after,
-.navbar-nav .nav-link.active:not(.dropdown-toggle)::after, /* Added :not(.dropdown-toggle) */
-.navbar-nav .nav-item.dropdown .nav-link.active::after /* This targets the Tools toggle when its an active parent */
-{
-    width: 60px; /* Fixed shorter width for the bar */
-    left: calc(50% - 30px); /* Adjust left to center the 60px bar */
+/* Underline effect for standard nav links on hover or if active */
+.navbar-nav .nav-link:not(.dropdown-toggle):hover::after,
+.navbar-nav .nav-link:not(.dropdown-toggle).active::after {
+    width: 60px; /* Fixed shorter width */
+    left: calc(50% - 30px); /* Center the 60px bar */
 }
 
-/* Ensure dropdown toggle does NOT have an underline when simply opened (.show), unless it's also .active */
-.navbar-nav .nav-item.dropdown .nav-link.show:not(.active)::after {
+/* Underline effect specifically for the dropdown toggle ONLY if it is active (i.e., on a tool page) OR hovered */
+.navbar-nav .dropdown-toggle:hover::after,
+.navbar-nav .dropdown-toggle.active::after {
+    width: 60px; /* Fixed shorter width */
+    left: calc(50% - 30px); /* Center the 60px bar */
+}
+
+/* Ensure the underline is hidden for the dropdown toggle when it's just 'open' (.show) but not 'active' */
+.navbar-nav .dropdown-toggle.show:not(.active)::after {
     width: 0%;
     left: 50%;
 }
@@ -168,8 +176,8 @@ h1, h2, h3, .navbar-brand {
     box-shadow: 0 5px 12px rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
-    /* `position: absolute` is default for Bootstrap dropdowns; `left: 0` aligns it to the parent li's left edge */
-    /* `dropdown-menu-end` in HTML aligns its right edge with parent */
+    position: absolute; /* Ensures it's positioned relative to parent .nav-item */
+    left: auto; /* Allow `right: 0` to work for `dropdown-menu-end` */
     min-width: max-content; /* Ensure it's wide enough for its content */
 }
 
